@@ -36,7 +36,7 @@ cmd_pub = rospy.Publisher('ggcnn/out/command', Float32MultiArray, queue_size=1)
 prev_mp = np.array([150, 150])
 
 # Get the camera parameters
-camera_info_msg = rospy.wait_for_message('/camera/depth/camera_info', CameraInfo)
+camera_info_msg = rospy.wait_for_message('/ptu_camera/camera/depth/camera_info', CameraInfo)
 K = camera_info_msg.K
 fx = K[0]
 cx = K[2]
@@ -130,7 +130,7 @@ def depth_callback(depth_message):
         cmd_pub.publish(cmd_msg)
 
 
-depth_sub = rospy.Subscriber('/camera/depth/image_meters', Image, depth_callback, queue_size=1)
+depth_sub = rospy.Subscriber('/ptu_camera/camera/depth/image_meters', Image, depth_callback, queue_size=1)
 
 while not rospy.is_shutdown():
     rospy.spin()

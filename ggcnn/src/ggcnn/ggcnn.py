@@ -11,7 +11,10 @@ from tensorflow.keras.backend import set_session
 from dougsm_helpers.timeit import TimeIt
 
 MODEL_FILE = 'models/epoch_29_model.hdf5'
-sess = tf.Session()
+
+config = tf.ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.6
+sess = tf.Session(config=config)
 set_session(sess)
 graph = tf.get_default_graph()
 model = load_model(path.join(path.dirname(__file__), MODEL_FILE))
